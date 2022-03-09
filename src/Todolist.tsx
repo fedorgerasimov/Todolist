@@ -1,49 +1,39 @@
-import React from "react";
+import React from 'react';
 
-type TasksPropsType = {
-    id: number,
-    title: string,
+type TaskType = {
+    id: number
+    title: string
     isDone: boolean
 }
 
-type TodolistPropsType = {
-    title: string,
-    tasks: Array<TasksPropsType>
+type PropsType = {
+    title: string
+    tasks: Array<TaskType>
+    removedTask: (id:number)=> void
 }
 
-export const TodoList = (props: TodolistPropsType) => {
-    return (
-        <div className="App">
-            <div>
-                <h3>{props.title}</h3>
-                <div>
-                    <input/>
-                    <button>+</button>
-                </div>
-                <ul>
-                    {props.tasks.map((el) => {
-                        debugger
-                        return (
-                            <li><input type="checkbox" checked={el.isDone}/> <span>{el.title}</span></li>
-                        )
-                    })}
-                    {/* <li><input type="checkbox" checked={props.task[0].isDone}/> <span>{props.task[0].title}</span></li>
-                        <li><input type="checkbox" checked={props.task[1].isDone}/> <span>{props.task[1].title}</span></li>
-                        <li><input type="checkbox" checked={props.task[2].isDone}/> <span>{props.task[2].title}</span></li>*/}
-                </ul>
-                <div>
-                    <button>All</button>
-                    <button>Active</button>
-                    <button>Completed</button>
-                </div>
-            </div>
+export function Todolist(props: PropsType) {
+    return <div>
+        <h3>{props.title}</h3>
+        <div>
+            <input/>
+            <button>+</button>
         </div>
-    );
+        <ul>
+            {props.tasks.map((el, index) => {
+                return (
+                    <li key={el.id}>
+                        <button onClick={ ()=> props.removedTask(el.id)}>x</button>
+                        <input type="checkbox" checked={el.isDone}/>
+                        <span>{el.title}</span>
+                    </li>
+                )
+            })}
+        </ul>
+        <div>
+            <button>All</button>
+            <button>Active</button>
+            <button>Completed</button>
+        </div>
+    </div>
 }
-
-/*
-Array.map((el) => {
-    return (
-        el
-    )
-})*/
