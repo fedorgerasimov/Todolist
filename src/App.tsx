@@ -15,24 +15,26 @@ function App() {
         setTasks1(filtered)
     }
 
-    let [valueButton, setValueButton] = useState( "All")
-    const tasksFiler = (filterValue:string) => {
+/*    let [valueButton, setValueButton] = useState( "All")
+
+    const tasksFilter = (filterValue:string) => {
         setValueButton(filterValue)
     }
+
     let prokladka = tasks1
     if (valueButton === "Active") {
         prokladka = tasks1.filter(el=> el.isDone === false)
     }
     if (valueButton === "Completed") {
         prokladka = tasks1.filter(el=> el.isDone === true)
-    }
+    }*/
 
     return (
         <div className="App">
             <Todolist title="What to learn"
-                      tasks={prokladka}
+                      tasks={tasks1}
                       removedTask = {removedTask}
-                      tasksFilter={tasksFiler}
+                      //tasksFilter={tasksFilter}
             />
         </div>
     );
