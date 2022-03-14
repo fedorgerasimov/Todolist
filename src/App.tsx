@@ -1,16 +1,17 @@
 import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
+import {v1} from "uuid";
 
 
 function App() {
     let [tasks1, setTasks1] = useState([
-        {id: 1, title: "HTML&CSS", isDone: true},
-        {id: 2, title: "JS", isDone: true},
-        {id: 3, title: "ReactJS", isDone: false}
+        {id: v1(), title: "HTML&CSS", isDone: true},
+        {id: v1(), title: "JS", isDone: true},
+        {id: v1(), title: "ReactJS", isDone: false}
     ])
 
-    const removeTask = (newId: number) => {
+    const removeTask = (newId: string) => {
         let filtered = tasks1.filter((el) => el.id !== newId)//2
         setTasks1(filtered)
     }
@@ -19,6 +20,11 @@ function App() {
 
     const tasksFilter = (filterValue: string) => {
         setValueButton(filterValue)
+    }
+
+    const addTask = (newTitle:string) => {
+        let newTask = {id: v1(), title: newTitle, isDone: true}
+        setTasks1([newTask,...tasks1])
     }
 
     let prokladka = tasks1
@@ -35,6 +41,7 @@ function App() {
                 tasks={prokladka}
                 removeTask={removeTask}
                 tasksFilter={tasksFilter}
+                addTask={addTask}
             />
         </div>
     );

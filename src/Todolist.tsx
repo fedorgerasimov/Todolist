@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 type TaskType = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
@@ -9,18 +9,19 @@ type TaskType = {
 type PropsType = {
     title: string
     tasks: Array<TaskType>
-    removeTask: (id: number) => void
+    removeTask: (id: string) => void
     tasksFilter:(filterValue: string) => void
+    addTask: (newTitle:string) => void
 }
 
 
 export function Todolist(props: PropsType) {
-
+    let [newTitle, setNewTitle] = useState('')
     return <div>
         <h3>{props.title}</h3>
         <div>
-            <input/>
-            <button>+</button>
+            <input onChange={(event) => setNewTitle(event.currentTarget.value)}/>
+            <button onClick={() => props.addTask(newTitle)}>+</button>
         </div>
         <ul>
             {props.tasks.map((el) => {
