@@ -31,11 +31,13 @@ export function Todolist(props: PropsType) {
     }
     const allFilterHandler = () => {
         props.tasksFilter("All")
-    }
+    }       // переписали в callback  filterHandler
     const activeFilterHandler = () => {
         props.tasksFilter("Active")
+    }    // переписали в callback filterHandler
+    const filterHandler=(filterValue:string) => {
+        props.tasksFilter(filterValue)
     }
-
 
 
     return <div>
@@ -60,9 +62,9 @@ export function Todolist(props: PropsType) {
             })}
         </ul>
         <div>
-            <button onClick={allFilterHandler}>All</button>
-            <button onClick={activeFilterHandler}>Active</button>
-            <button onClick={() => props.tasksFilter('Completed')}>Completed</button>
+            <button onClick={() =>filterHandler ('All')}>All</button>
+            <button onClick={() =>filterHandler('Active')}>Active</button>
+            <button onClick={() => filterHandler('Completed')}>Completed</button>
         </div>
     </div>
 }
