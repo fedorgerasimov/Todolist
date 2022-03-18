@@ -20,17 +20,17 @@ export function Todolist(props: PropsType) {
 
     let [title, setTitle] = useState("")
 
-    const addTask = () => {
-        props.addTask(title);
+    const addTask = () => {       // функция связывается с addTask в App
+        props.addTask(title);     // и уже в App в функции addTask происходит добавление новой таски
         setTitle("");
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => { // функция получает значение которое ввели в input
+        setTitle(e.currentTarget.value)                          // с помощью event.currentTarget.value
     }
 
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode === 13) {
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => { // функция при нажатии на enter
+        if (e.charCode === 13) {                             // вызывает функцию addTask, которая вызывается выше (добавляет таску)
             addTask();
         }
     }
