@@ -26,6 +26,16 @@ function App() {
         setTasks(newTasks);
     }
 
+    const changeStatusCheckbox = (currentId: string, eventStatus: boolean ) => {
+
+        let currentObject=tasks.find(el=>el.id === currentId) //Деструктуризация - пересобираем наш массив/ делаем копию массива
+        if (currentObject) {
+            currentObject.isDone= eventStatus
+            setTasks([...tasks])
+        }
+    }
+    // setTasks(tasks.map((el) => el.id === currentId ? {...el,isDone:eventStatus} :el))
+
     let [filter, setFilter] = useState<FilterValuesType>("all");
 
     let tasksForTodolist = tasks;
@@ -37,8 +47,8 @@ function App() {
         tasksForTodolist = tasks.filter(t => t.isDone === true);
     }
 
-    function changeFilter(value: FilterValuesType) {
-        setFilter(value);
+    function changeFilter(value: FilterValuesType) { // сюда прилетает какое-либо значение из all/active/completed
+        setFilter(value);   // записываем значение в useState
     }
 
 
@@ -49,7 +59,10 @@ function App() {
                       tasks={tasksForTodolist}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
-                      addTask={addTask} />
+                      addTask={addTask}
+                      changeStatusCheckbox={changeStatusCheckbox}
+                      filter={filter}
+            />
         </div>
     );
 }
