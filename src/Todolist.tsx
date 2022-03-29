@@ -8,13 +8,15 @@ export type TaskType = {
 }
 
 type PropsType = {
+    id: string
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string) => void
-    changeFilter: (value: FilterValuesType) => void
-    addTask: (title: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
+    removeTask: (taskId: string, id : string) => void
+    changeFilter: (value: FilterValuesType, id:string) => void
+    addTask: (title: string, id: string) => void
+    changeTaskStatus: (taskId: string, isDone: boolean, id:string) => void
     filter: FilterValuesType
+    removeTodolist: (todoListId:string) => void
 }
 
 export function Todolist(props: PropsType) {
