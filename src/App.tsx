@@ -51,10 +51,13 @@ function App() {
     const [filter, setFilter] = useState<FilterValuesType>("all");*/
 
     //then should function refactor
-    function removeTask(id: string, todoListId: string) {
+    function removeTask(taskId: string, todoListId: string) {
+        const tasksFromTodolist = tasks[todoListId]
+        const filteredTasks = tasksFromTodolist.filter(t => t.id !== taskId);
+        const copyTasks = {...tasks}
+        copyTasks[todoListId] = filteredTasks
+        setTasks(copyTasks)
 
-
-        
         //let filteredTasks = tasks.filter(t => t.id != id);
         //setTasks(filteredTasks);
     }
