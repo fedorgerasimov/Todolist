@@ -52,13 +52,15 @@ function App() {
 
     //then should function refactor
     function removeTask(taskId: string, todoListId: string) {
-        const tasksFromTodolist = tasks[todoListId]
+        const filteredTasks = tasks[todoListId].filter(t => t.id !== taskId);
+        setTasks({...tasks, [todoListId]: filteredTasks})
+       /* const tasksFromTodolist = tasks[todoListId]    -2ой вариант функции
         const filteredTasks = tasksFromTodolist.filter(t => t.id !== taskId);
         const copyTasks = {...tasks}
         copyTasks[todoListId] = filteredTasks
-        setTasks(copyTasks)
+        setTasks(copyTasks)*/
 
-        //let filteredTasks = tasks.filter(t => t.id != id);
+        //let filteredTasks = tasks.filter(t => t.id != id); - старая функция
         //setTasks(filteredTasks);
     }
 
