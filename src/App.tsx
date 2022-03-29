@@ -64,23 +64,40 @@ function App() {
         //setTasks(filteredTasks);
     }
 
-    function addTask(title: string) {
-        let task = {id: v1(), title: title, isDone: false};
+    function addTask(title: string, todoListId: string) {
+        const newTask = {id: v1(), title, isDone: true}
+        setTasks({...tasks, [todoListId]: [newTask, ...tasks[todoListId]]})
+    }
+    /*    let task = {id: v1(), title: title, isDone: false};  - старая функция
         let newTasks = [task, ...tasks];
-        setTasks(newTasks);
-    }
+        setTasks(newTasks);*/
 
-    function changeStatus(taskId: string, isDone: boolean) {
-        let task = tasks.find(t => t.id === taskId);
+
+    function changeStatus(taskId: string, isDone: boolean, todoListId:string) {
+/*        setTasks({...tasks,                                           // первый вариант посложнее
+            [todoListId]: tasks[todoListId]
+                .map(t => t.id === taskId ? {...t, isDone} : t)
+    })*/
+        const updatedTasksFromTodolist = tasks[todoListId]   // второй вариант
+            .map(t => t.id === taskId ? {...t, isDone} : t)
+        const copyTasks = {...tasks}
+        copyTasks[todoListId] = updatedTasksFromTodolist
+        setTasks(copyTasks)
+    }
+    /* let task = tasks.find(t => t.id === taskId);   - старая функция changeStatus
         if (task) {
-            task.isDone = isDone;
-        }
+            task.isDone = isDone;}
+        setTasks([...tasks]);}*/
 
-        setTasks([...tasks]);
+    function changeFilter(filter: FilterValuesType, todoListsId: string) {
+        setTodoLists(todoLists.map(tl => tl.id === todoListsId ? {...tl, filter} : tl))
     }
 
-    function changeFilter(value: FilterValuesType) {
-        setFilter(value);
+    function removeTodolist (todoListsId: string) {
+        setTodoLists(todoLists.filter(tl=> tl.id !== todoListsId))
+        const copyTasks = {...tasks}
+        delete copyTasks[todoListsId]
+        setTasks(copyTasks)
     }
 
     let tasksForTodolist = tasks;
