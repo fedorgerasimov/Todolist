@@ -65,11 +65,11 @@ function App() {
 
     }
 
-    function changeTaskTitle (todoListId: string, taskId: string, isDone: boolean) {
+    function changeTaskTitle (todoListId: string, taskId: string, title: string) {
         setTasks({
             ...tasks,
             [todoListId]: tasks[todoListId]
-                .map(t => t.id === taskId ? {...t, taskId} : t)
+                .map(t => t.id === taskId ? {...t, title} : t)
         })
     }
 
@@ -124,6 +124,7 @@ function App() {
                 addTask={addTask}
                 changeTaskStatus={changeTaskStatus}
                 removeTodolist={removeTodolist}
+                changeTaskTitle={changeTaskTitle}
 
             />
         )
