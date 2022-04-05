@@ -46,12 +46,6 @@ function App() {
         //setTasks(filteredTasks);
         const filteredTasks = tasks[todoListId].filter(t => t.id !== taskId);
         setTasks({...tasks, [todoListId]: filteredTasks})
-        /* -2ой вариант функции
-        const tasksFromTodolist = tasks[todoListId]
-        const filteredTasks = tasksFromTodolist.filter(t => t.id !== taskId);
-        const copyTasks = {...tasks}
-        copyTasks[todoListId] = filteredTasks
-        setTasks(copyTasks)*/
     }
 
     function addTask(title: string, todoListId: string) {
@@ -67,11 +61,7 @@ function App() {
        //if (task) {task.isDone = isDone;}
        //setTasks([...tasks]);}
         setTasks({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === taskId ? {...t, isDone} : t)})
-       /* const updatedTasksFromTodolist = tasks[todoListId]   // второй вариант
-            .map(t => t.id === taskId ? {...t, isDone} : t)
-        const copyTasks = {...tasks}
-        copyTasks[todoListId] = updatedTasksFromTodolist
-        setTasks(copyTasks)*/
+
     }
 
     function changeFilter(filter: FilterValuesType, todolistID: string) {
@@ -84,6 +74,16 @@ function App() {
         delete tasks[todolistID]
         console.log(tasks) // можно проверить что делает функция delete
         console.log('remove')
+    }
+
+    function addTodolist (title: string) {
+        const newTodolist : TodolistType = {
+            id: v1(),
+            title: title,
+            filter: 'all'
+        }
+        setTodoLists([...todoLists, newTodolist])
+        setTasks({...tasks, [newTodolist.id] : []})
     }
 
     const todoListsComponents = todoLists.map(tl => {   // tl берём из todolistID_1 или _id2
