@@ -9,13 +9,13 @@ export type TaskType = {
 }
 
 type PropsType = {
-    id: string
+    todolistID: string
     title: string
     tasks: Array<TaskType>
-    removeTask: (taskId: string, id : string) => void
-    changeFilter: (value: FilterValuesType, id:string) => void
-    addTask: (title: string, id: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean, id:string) => void
+    removeTask: (todolistID : string, taskId: string) => void
+    changeFilter: (todolistID : string, value: FilterValuesType) => void
+    addTask: (todolistID : string, title: string) => void
+    changeTaskStatus: (todolistID : string, taskId: string, isDone: boolean) => void
     filter: FilterValuesType
     removeTodolist: (todoListsId:string) => void
 }
@@ -23,26 +23,24 @@ type PropsType = {
 export function Todolist(props: PropsType) {
 
     const addTask = (title:string) => {
-     props.addTask(title, props.id)
+     props.addTask(title, props.todolistID)
     }
 
-
-    const onAllClickHandler = () => props.changeFilter("all", props.id);
-    const onActiveClickHandler = () => props.changeFilter("active", props.id);
-    const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
-
+    const onAllClickHandler = () => props.changeFilter(props.todolistID,"all");
+    const onActiveClickHandler = () => props.changeFilter(props.todolistID,"active");
+    const onCompletedClickHandler = () => props.changeFilter(props.todolistID,"completed");
 
     return <div>
         <h3>{props.title}
-        <button onClick={()=> props.removeTodolist(props.id)}>x</button>
+        <button onClick={()=> props.removeTodolist(props.todolistID)}>x</button>
         </h3>
         <AddItemForm addItem={addTask}/>
         <ul>
             {
                 props.tasks.map(t => {
-                    const onClickHandler = () => props.removeTask(t.id, props.id)
+                    const onClickHandler = () => props.removeTask(t.id, props.todolistID)
                     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        props.changeTaskStatus(t.id, e.currentTarget.checked, props.id);
+                        props.changeTaskStatus(props.todolistID, t.id, e.currentTarget.checked);
                     }
 
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
