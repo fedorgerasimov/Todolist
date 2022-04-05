@@ -13,7 +13,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
     }
 
     const addItem = () => {
-        if (title.trim() !== '') {        // защита чтобы нельзя было добавить пустую таску
+        if (title.trim()) {
             props.addItem(title.trim())
             setTitle('');
         } else {
