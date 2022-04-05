@@ -74,7 +74,6 @@ function App() {
     }
 
     //TodoLists:
-
     function changeTodolistFilter(todolistID: string, filter: FilterValuesType) {
         // setFilter(value)
         setTodoLists(todoLists.map(tl => tl.id === todolistID ? {...tl, filter} : tl))
@@ -87,8 +86,6 @@ function App() {
             filter}
             : tl))
     }
-
-
 
     function removeTodolist(todolistID: string) {
         setTodoLists(todoLists.filter(tl => tl.id !== todolistID)) // удалили todolist
