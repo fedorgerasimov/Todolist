@@ -3,7 +3,7 @@ import {FilterValuesType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import EditTableSpan from "./EditTableSpan";
 import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@material-ui/core";
-import {Delete} from '@material-ui/icons';
+import {Delete, DeleteForeverTwoTone} from '@material-ui/icons';
 
 export type TaskType = {
     id: string
@@ -69,7 +69,7 @@ export function Todolist(props: PropsType) {
                             <EditTableSpan title={t.title} changeTitle={changeTaskTitle}/>
                             {/*<span>{t.title}</span>*/}
                             <Button onClick={onClickHandler} size={'small'}>
-                                <Delete/>
+                                <DeleteForeverTwoTone/>
                             </Button>
                         </ListItem>
                     })
