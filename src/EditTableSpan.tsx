@@ -1,5 +1,4 @@
 import React, {ChangeEvent, useState} from "react";
-import {TextField} from "@material-ui/core";
 
 type EditTableSpanPropsType = {
     title: string
@@ -22,7 +21,7 @@ const EditTableSpan = (props: EditTableSpanPropsType) => {
     }
     return (
         editMode    //
-            ? <TextField
+            ? <input
                 value={title}
                 autoFocus  // autoFocus={true}
                 onBlur={offEditMode}

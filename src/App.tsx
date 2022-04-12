@@ -3,6 +3,7 @@ import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from "./AddItemForm";
+import {Paper} from "@material-ui/core";
 
 export type FilterValuesType = "all" | "active" | "completed";
 type TodolistType = {
@@ -113,7 +114,9 @@ function App() {
             tasksForTodolist = tasks[tl.id].filter(t => t.isDone === true);
         }
 
-        return (<Todolist
+        return (
+        <Paper elevation={8} style={{padding:"15px"}}>
+        <Todolist
                 key={tl.id}
                 todolistID={tl.id}
                 title={tl.title}
@@ -128,12 +131,15 @@ function App() {
                 changeTodolistTitle={changeTodolistTitle}
 
             />
+        </Paper>
         )
     })
 
     return (
         <div className="App">
-            <AddItemForm addItem={addTodolist}/>
+          <div>
+              <AddItemForm addItem={addTodolist}/>    {/*обернули в div чтобы выровнять input */}
+          </div>
             {todoListsComponents} {/*возвращаем массив компонентов*/}
         </div>
     );
