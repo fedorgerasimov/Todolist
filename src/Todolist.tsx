@@ -38,9 +38,9 @@ export function Todolist(props: PropsType) {
     const changeTodolistTitle = (newTitle: string) => props.changeTodolistTitle(props.todolistID, newTitle)
 
 
-    return <div style={{display: "flex", flexDirection: "column", alignContent: "space-between", height: "inherit"}}> {/*не работает*/}
-        <div>
-            <Typography align={'center'} variant={"h5"}>
+    return (
+    <div style={{maxWidth: "300px"}}> {/*не работает*/}
+        <Typography align={'center'} variant={"h5"}>
                 <EditTableSpan title={props.title} changeTitle={changeTodolistTitle}/>
                 <IconButton onClick={() => props.removeTodolist(props.todolistID)}>
                     <Delete/>
@@ -96,6 +96,7 @@ export function Todolist(props: PropsType) {
                     </Button>
                 </ButtonGroup>
             </div>
-        </div>
+
     </div>
+    )
 }
