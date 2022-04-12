@@ -1,4 +1,6 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
+import {IconButton} from "@material-ui/core";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 type AddItemFormPropsType ={
     addItem: (title: string) => void
@@ -34,7 +36,12 @@ export function AddItemForm(props: AddItemFormPropsType) {
                    onKeyPress={onKeyPressHandler}
                    className={error ? 'error' : ''} // error может быть, может нет. Для этого нужно создать стейт
             />
-            <button onClick={addItem}>+</button>
+            <IconButton
+                onClick={addItem}
+                color={"primary"}
+            >
+            <AddCircleOutlineIcon/>
+            </IconButton>
             {error && <div className='error-message'>{error}</div>}
         </div>
     )

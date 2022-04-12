@@ -1,4 +1,5 @@
 import React, {ChangeEvent, useState} from "react";
+import {TextField} from "@material-ui/core";
 
 type EditTableSpanPropsType = {
     title: string
@@ -21,13 +22,14 @@ const EditTableSpan = (props: EditTableSpanPropsType) => {
     }
     return (
         editMode    //
-            ? <input
+            ? <TextField
                 value={title}
                 autoFocus  // autoFocus={true}
                 onBlur={offEditMode}
                 onChange={onChangeHandler}
                />
             : <span
+                style={{fontWeight:"bold"}}
                 onDoubleClick={onEditMode}
             >{props.title}</span>
     )
