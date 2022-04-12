@@ -2,7 +2,7 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import EditTableSpan from "./EditTableSpan";
-import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem} from "@material-ui/core";
+import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@material-ui/core";
 import {Delete} from '@material-ui/icons';
 
 export type TaskType = {
@@ -38,15 +38,15 @@ export function Todolist(props: PropsType) {
     const changeTodolistTitle = (newTitle: string) => props.changeTodolistTitle(props.todolistID, newTitle)
 
 
-    return <div style={{display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+    return <div style={{display: "flex", flexDirection: "column", alignContent: "space-between", height: "inherit"}}> {/*не работает*/}
         <div>
-            <h3>
+            <Typography align={'center'} variant={"h5"}>
                 <EditTableSpan title={props.title} changeTitle={changeTodolistTitle}/>
                 <IconButton onClick={() => props.removeTodolist(props.todolistID)}>
                     <Delete/>
                 </IconButton>
 
-            </h3>
+            </Typography>
             <AddItemForm addItem={addTask}/>
             <List>
                 {
@@ -79,7 +79,9 @@ export function Todolist(props: PropsType) {
                 <ButtonGroup
                     size={'small'}
                     variant={'contained'}
-                    disableElevation>
+                    disableElevation
+                    fullWidth
+                >
                     <Button
                         color={props.filter === 'all' ? "secondary" : "primary"}
                         onClick={onAllClickHandler}>All
