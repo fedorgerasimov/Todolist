@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {ThemeProvider} from "@material-ui/core/styles";
+import {darken, ThemeProvider} from "@material-ui/core/styles";
 import { createTheme } from '@material-ui/core/styles';
-import {teal, yellow} from "@material-ui/core/colors";
+import {blue, blueGrey, deepOrange, lightGreen, red, teal, yellow} from "@material-ui/core/colors";
 import {CssBaseline} from "@material-ui/core";
+import {dark} from "@material-ui/core/styles/createPalette";
 
 const theme = createTheme( {
     palette: {
-        primary: teal,
-        secondary: yellow,
-        type: "dark"
+        primary:  blueGrey,
+        secondary: deepOrange,
+        type: "light"
     }
 })
 

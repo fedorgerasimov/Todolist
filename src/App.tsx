@@ -16,7 +16,7 @@ import {
 import {Menu} from "@material-ui/icons";
 
 export type FilterValuesType = "all" | "active" | "completed";
-type TodolistType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -85,18 +85,14 @@ function App() {
     }
 
     //TodoLists:
-    function changeTodolistFilter(todolistID: string, filter: FilterValuesType) {
+    function changeTodolistFilter(todolistID: string, value: FilterValuesType) {
         // setFilter(value)
-        setTodoLists(todoLists.map(tl => tl.id === todolistID ? {...tl, filter} : tl))
+        setTodoLists(todoLists.map(tl => tl.id === todolistID ? {...tl, filter: value} : tl))
     }
 
-    function changeTodolistTitle(todolistID: string, title: string) {
+    function changeTodolistTitle(todolistID: string, newTitle: string) {
         // setFilter(value)
-        setTodoLists(todoLists.map(tl => tl.id === todolistID ? {
-                ...tl,
-                title
-            }
-            : tl))
+        setTodoLists(todoLists.map(tl => tl.id === todolistID ? {...tl, title: newTitle} : tl))
     }
 
     function removeTodolist(todolistID: string) {
