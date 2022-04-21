@@ -48,7 +48,7 @@ export const todolistsReducer = (todolists: Array<TodolistType>, action: ActionT
 
 //AC - action creator
 export const AddTodolistAC = (title:string) : AddTodolistAT => ({type: "ADD-TODOLIST", title}) // нужны (скобки) вокруг {}, так как возвращаем объект
-export const RemoveTdolistAC = (id:string) : RemoveTodolistAT => ({type: "REMOVE-TODOLIST", id})  // просто id (так как ключ и значение совпадают) или id:id
+export const RemoveTodolistAC = (id:string) : RemoveTodolistAT => ({type: "REMOVE-TODOLIST", id})  // просто id (так как ключ и значение совпадают) или id:id
 export const ChangeTodolistTitleAC = (title:string, id: string) : ChangeTodolistTitleAT => ({type: "CHANGE-TODOLIST-TITLE", id, title})  // просто id или id:id
 export const ChangeTodolistFilterAC = (filter: FilterValuesType, id: string) : ChangeTodolistFilterAT => ({type: "CHANGE-TODOLIST-FILTER", id, filter})  // просто id или id:id
 
