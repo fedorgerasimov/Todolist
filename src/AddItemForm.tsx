@@ -22,12 +22,12 @@ export function AddItemForm(props: AddItemFormPropsType) {
     }
 
     const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
         if (Boolean(error)) setError(false)
+        setTitle(e.currentTarget.value)
     }
 
     const onKeyPressAddItem = (e: KeyboardEvent<HTMLInputElement>) => {  //
-        setError(false) // Теперь будет очищаться input. Каждая установка state приводит к перерисовке компонента, но если отправлять одно и то же значение, перерисовке не будет
+        if (Boolean(error)) setError(false) // Теперь будет очищаться input. Каждая установка state приводит к перерисовке компонента, но если отправлять одно и то же значение, перерисовке не будет
         if (e.key === 'Enter') addItem();  //  (e.key === 'Enter') && addItem ()
     }
 
