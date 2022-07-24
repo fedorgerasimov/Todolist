@@ -1,54 +1,40 @@
 import {FilterValuesType, TodolistType} from "../App";
 import {v1} from "uuid";
-//AC = ActonType
-type AddTodolistAT = {
-    type: "ADD-TODOLIST"
-    title: string
-}
-type RemoveTodolistAT = {
-    type: "REMOVE-TODOLIST"
-    id: string
-}
-type ChangeTodolistTitleAT = {
-    type: "CHANGE-TODOLIST-TITLE"
-    title: string
-    id: string
-}
-type ChangeTodolistFilterAT = {
-    type: "CHANGE-TODOLIST-FILTER"
-    filter: FilterValuesType
-    id:string
-}
 
-export type ActionType = AddTodolistAT  | RemoveTodolistAT | ChangeTodolistTitleAT | ChangeTodolistFilterAT
+export type ActionType =
+    ReturnType<typeof addTodolistAC>
+    |  ReturnType<typeof removeTodolistAC>  // лучше сразу здесь писать, чем создавать отдельную переменную
+    |  ReturnType<typeof changeTodolistTitleAC> // без ChangeTodolistFilterActionType
+    |  ReturnType<typeof changeTodolistFilterAC>
 
-export const todolistsReducer = (todolists: Array<TodolistType>, action: ActionType): Array<TodolistType> => {
+export const todolistsReducer = (state: Array<TodolistType>, action: ActionType): Array<TodolistType> => {
     switch (action.type) {
         case "ADD-TODOLIST":
-            const newTodolist: TodolistType = {
-                id: v1(),
-                title: action.title,
-                filter: 'all'
-            }
-            return [...todolists, newTodolist]
+            const newTodolist: TodolistType = {id: v1(), title: action.newTitle, filter: 'all'}
+            return [newTodolist,...state]
         case "REMOVE-TODOLIST":
-            return todolists.filter(tl => tl.id !== action.id)
+            return state.filter(el => el.id !== action.todolistID)
         case "CHANGE-TODOLIST-TITLE":
-            return todolists.map(tl => tl.id === action.id
-                            ? {...tl, title: action.title}
-                            : tl)
+            return state.map(el => el.id === action.todolistID
+                ? {...el, title: action.newTitle}: el)
         case "CHANGE-TODOLIST-FILTER":
-            return todolists.map(tl => tl.id === action.id
-                            ? {...tl, filter: action.filter}
-                            : tl)
+            return state.map(el => el.id ===action.todolistID
+            ? {...el, filter: action.filter} : el)
         default:
-            return todolists
+            return state
     }
 }
 
-//AC - action creator
-export const AddTodolistAC = (title:string) : AddTodolistAT => ({type: "ADD-TODOLIST", title}) // нужны (скобки) вокруг {}, так как возвращаем объект
-export const RemoveTodolistAC = (id:string) : RemoveTodolistAT => ({type: "REMOVE-TODOLIST", id})  // просто id (так как ключ и значение совпадают) или id:id
-export const ChangeTodolistTitleAC = (title:string, id: string) : ChangeTodolistTitleAT => ({type: "CHANGE-TODOLIST-TITLE", id, title})  // просто id или id:id
-export const ChangeTodolistFilterAC = (filter: FilterValuesType, id: string) : ChangeTodolistFilterAT => ({type: "CHANGE-TODOLIST-FILTER", id, filter})  // просто id или id:id
+//AC - action creator- функция action creator возвращает объект
+export const addTodolistAC = (newTitle:string) =>
+    ({type: "ADD-TODOLIST", newTitle} as const) // нужны (скобки) вокруг {}, так как возвращаем объект
+
+export const removeTodolistAC = (todolistID:string)  =>
+    ({type: "REMOVE-TODOLIST", todolistID} as const)  // просто id (так как ключ и значение совпадают) или id:id
+
+export const changeTodolistTitleAC = (todolistID: string, newTitle:string) =>
+    ({type: "CHANGE-TODOLIST-TITLE", todolistID, newTitle} as const)  //as const) нужен для того, чтобы воспринимал не как тип string, a как константу
+
+export const changeTodolistFilterAC = (todolistID: string, filter: FilterValuesType)  =>
+    ({type: "CHANGE-TODOLIST-FILTER",todolistID, filter} as const)  // просто id или id:id
 

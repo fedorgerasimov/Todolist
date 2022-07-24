@@ -1,19 +1,29 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 
 type EditTableSpanPropsType = {
     title: string
-    changeTitle: (title:string)=> void
+    changeTitle: (title: string) => void
 }
 
 const EditTableSpan = (props: EditTableSpanPropsType) => {
     const [title, setTitle] = useState(props.title)
     const [editMode, setEditMode] = useState<boolean>(false)
+
+    /*const onDoubleClickHandler = () => { можно одной функций менять
+        setEditMode(!editMode)
+         props.changeTitle(title)
+    }*/
+
     const onEditMode = () => {
         setEditMode(true)
     }
     const offEditMode = () => {
         setEditMode(false)
         props.changeTitle(title)
+    }
+
+    const onKeyPressOffEditMode = (event: KeyboardEvent<HTMLInputElement>) => { // добавил усл. при нажатии enter
+        event.key === 'Enter' && offEditMode()
     }
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -26,9 +36,10 @@ const EditTableSpan = (props: EditTableSpanPropsType) => {
                 autoFocus  // autoFocus={true}
                 onBlur={offEditMode}
                 onChange={onChangeHandler}
-               />
+                onKeyPress={onKeyPressOffEditMode}
+            />
             : <span
-                style={{fontWeight:"bold"}}
+                style={{fontWeight: "bold"}}
                 onDoubleClick={onEditMode}
             >{props.title}</span>
     )

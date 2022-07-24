@@ -8,9 +8,7 @@ import {
     Button,
     Container, Grid,
     IconButton,
-    Paper,
-    TableContainer,
-    Toolbar,
+    Paper, Toolbar,
     Typography
 } from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
@@ -27,7 +25,6 @@ export type TasksStateType = {
 }
 
 function App() {
-    // many todoLists:
     const todolistID_1 = v1()
     const todolistID_2 = v1()
 
@@ -51,76 +48,53 @@ function App() {
             {id: v1(), title: "Oil", isDone: false},
         ]
     })
-    //functions:
-    //tasks:
-    function removeTask(taskId: string, todoListId: string) {
-        //   let filteredTasks = tasks.filter(t => t.id != id);
-        //setTasks(filteredTasks);
-        const filteredTasks = tasks[todoListId].filter(t => t.id !== taskId);
-        setTasks({...tasks, [todoListId]: filteredTasks})
+
+    const removeTask = (todoListID: string,taskID: string) => {
+        setTasks({...tasks, [todoListID]: tasks[todoListID].filter(el => el.id !== taskID)})
     }
 
-    function addTask(title: string, todoListId: string) {
-        //let task = {id: v1(), title: title, isDone: false};
-        //let newTasks = [task, ...tasks];
-        //setTasks(newTasks);
-        const newTask = {id: v1(), title, isDone: false}
-        setTasks({...tasks, [todoListId]: [newTask, ...tasks[todoListId]]})
+    const addTask = (todolistID: string, newTitle: string) => {
+        const newTask = {id: v1(), title: newTitle, isDone: false}
+        setTasks({...tasks, [todolistID]: [newTask, ...tasks[todolistID]]})
     }
 
-    function changeTaskStatus(todoListId: string, taskId: string, isDone: boolean) {
-        //let task = tasks.find(t => t.id === taskId);
-        //if (task) {task.isDone = isDone;}
-        //setTasks([...tasks]);}
-        setTasks({...tasks, [todoListId]: tasks[todoListId].map(t => t.id === taskId ? {...t, isDone} : t)})
-
-    }
-
-    function changeTaskTitle(todoListId: string, taskId: string, title: string) {
+    const changeTaskStatus = (todolistID: string, taskID: string, isDone: boolean) => {
         setTasks({
-            ...tasks,
-            [todoListId]: tasks[todoListId]
-                .map(t => t.id === taskId ? {...t, title} : t)
+            ...tasks, [todolistID]: tasks[todolistID].map(t =>
+                t.id === taskID ? {...t, isDone} : t)
         })
     }
 
-    //TodoLists:
-    function changeTodolistFilter(todolistID: string, value: FilterValuesType) {
-        // setFilter(value)
-        setTodoLists(todoLists.map(tl => tl.id === todolistID ? {...tl, filter: value} : tl))
+    const changeTaskTitle = (todolistID: string, taskID: string, title: string) => {
+        setTasks({
+            ...tasks, [todolistID]: tasks[todolistID].map(t =>
+                t.id === taskID ? {...t, title} : t)
+        })
     }
 
-    function changeTodolistTitle(todolistID: string, newTitle: string) {
-        // setFilter(value)
-        setTodoLists(todoLists.map(tl => tl.id === todolistID ? {...tl, title: newTitle} : tl))
+    const changeTodolistFilter = (todolistID: string, value: FilterValuesType) => {
+        setTodoLists(todoLists.map(tl =>
+            tl.id === todolistID ? {...tl, filter: value} : tl))
     }
 
-    function removeTodolist(todolistID: string) {
-        setTodoLists(todoLists.filter(tl => tl.id !== todolistID)) // удалили todolist
+    const changeTodolistTitle = (todolistID: string, newTitle: string) => {
+        setTodoLists(todoLists.map(tl =>
+            tl.id === todolistID ? {...tl, title: newTitle} : tl))
+    }
+
+    const removeTodolist = (todolistID: string) => {
+        setTodoLists(todoLists.filter(tl => tl.id !== todolistID))
         delete tasks[todolistID]
-        console.log(tasks) // можно проверить что делает функция delete
-        console.log('remove')
     }
 
-    function addTodolist(title: string) {
-        const newTodolist: TodolistType = {
-            id: v1(),
-            title: title,
-            filter: 'all'
-        }
+    const addTodolist = (newTitle: string) => {
+        const newTodolistID = v1()
+        const newTodolist: TodolistType = {id: newTodolistID, title: newTitle, filter: 'all'}
         setTodoLists([...todoLists, newTodolist])
-        setTasks({...tasks, [newTodolist.id]: []})
+        setTasks({...tasks, [newTodolistID]: []})
     }
 
-    const todoListsComponents = todoLists.map(tl => {   // tl берём из todolistID_1 или _id2
-        let tasksForTodolist = tasks[tl.id];
-        if (tl.filter === "active") {
-            tasksForTodolist = tasks[tl.id].filter(t => t.isDone === false);
-        }
-        if (tl.filter === "completed") {
-            tasksForTodolist = tasks[tl.id].filter(t => t.isDone === true);
-        }
-
+    const todoListsForRender = todoLists.map(tl => {
         return (
             <Grid item key={tl.id}>
                 <Paper elevation={8} style={{padding: "20px", maxWidth: "300px"}}>   {/*display: "inline-block"*/}
@@ -129,15 +103,16 @@ function App() {
                         todolistID={tl.id}
                         title={tl.title}
                         filter={tl.filter}
-                        tasks={tasksForTodolist}
+                        tasks={tasks}
+
                         removeTask={removeTask}
                         changeFilter={changeTodolistFilter}
                         addTask={addTask}
                         changeTaskStatus={changeTaskStatus}
-                        removeTodolist={removeTodolist}
                         changeTaskTitle={changeTaskTitle}
-                        changeTodolistTitle={changeTodolistTitle}
 
+                        removeTodolist={removeTodolist}
+                        changeTodolistTitle={changeTodolistTitle}
                     />
                 </Paper>
             </Grid>
@@ -166,7 +141,10 @@ function App() {
                 <Grid
                     justifyContent={"center"}
                     container spacing={6}>
-                    {todoListsComponents} {/*возвращаем массив компонентов*/}
+                    {todoListsForRender.length
+                        ? todoListsForRender
+                        : <span style={{padding: "15px 40px 0 0", }}>Create your first ToDo!</span>
+                    }
                 </Grid>
             </Container>
         </div>
