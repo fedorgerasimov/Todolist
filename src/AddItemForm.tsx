@@ -34,6 +34,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
     return (
         <div style={{display: "flex", alignItems: "center"}}>   {/*инпут и кнопка добавили на одном уровне */}
             <TextField size={"small"} variant={"outlined"} label={"Title"}
+                       error={error} // border: red 1px solid;
                        value={title}
                        onChange={onChangeSetTitle}
                        onKeyPress={onKeyPressAddItem}
