@@ -10,7 +10,9 @@ export type ActionType =
     | ReturnType<typeof addTodolistAC>
     | ReturnType<typeof removeTodolistAC>
 
-export const tasksReducer = (state: TasksStateType, action: ActionType): TasksStateType => {
+const initialState: TasksStateType = {}
+
+export const tasksReducer = (state = initialState, action: ActionType): TasksStateType => {
     switch (action.type) {
         case "REMOVE-TASK":
             return {
@@ -22,13 +24,13 @@ export const tasksReducer = (state: TasksStateType, action: ActionType): TasksSt
             return {...state, [action.todolistID]: [newTask, ...state[action.todolistID]]}
         case 'CHANGE-TASK-STATUS':
             return {
-                ...state, [action.todolistID]: state[action.todolistID].map(el =>
-                    el.id === action.taskID ? {...el, isDone: action.isDone} : el)
+                ...state, [action.todolistID]: state[action.todolistID].map(
+                    el => el.id === action.taskID ? {...el, isDone: action.isDone} : el)
             }
         case 'CHANGE-TASK-TITLE':
             return {
-                ...state, [action.todolistID]: state[action.todolistID].map(el =>
-                    action.taskID ? {...el, title: action.newTitle} : el)
+                ...state, [action.todolistID]: state[action.todolistID].map(
+                    el => action.taskID ? {...el, title: action.newTitle} : el)
             }
         case 'ADD-TODOLIST':
             return {
@@ -42,7 +44,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionType): TasksSt
             //return copyState
 
         default:
-            throw  new Error('Error')
+             return state
     }
 }
 //AC - action creator
