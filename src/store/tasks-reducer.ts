@@ -30,7 +30,7 @@ export const tasksReducer = (state = initialState, action: ActionType): TasksSta
         case 'CHANGE-TASK-TITLE':
             return {
                 ...state, [action.todolistID]: state[action.todolistID].map(
-                    el => action.taskID ? {...el, title: action.newTitle} : el)
+                    el => el.id === action.taskID ? {...el, title: action.newTitle} : el)
             }
         case 'ADD-TODOLIST':
             return {

@@ -72,14 +72,14 @@ function AppWithRedux() {
     }
 
     const addTodolist = (newTitle: string) => {
-        let action = addTodolistAC(newTitle) // нужно создать объект чтобы генерировать одинаковый id
-        dispatch(action)                    // иначе не будут добавлятся TodoList
+        let action = addTodolistAC(newTitle) // нужно создать объект, чтобы генерировать одинаковый id
+        dispatch(action)                    // иначе не будут добавляться TodoList
     }
 
     const todoListsForRender = todoLists.map(tl => {
         return (
             <Grid item key={tl.id}>
-                <Paper elevation={8} style={{padding: "20px", maxWidth: "300px"}}>   {/*display: "inline-block"*/}
+                <Paper elevation={8} style={{padding: "20px", maxWidth: "300px", wordBreak: "break-word"}}>   {/*display: "inline-block"*/}
                     <Todolist
                         key={tl.id}
                         todolistID={tl.id}

@@ -46,7 +46,7 @@ export function Todolist(props: PropsType) {
     const tasksListItems = tasksForRender
 
     return (
-        <div style={{maxWidth: "300px"}}> {/*не работает*/}
+        <div style={{}}> {/*не работает*/}
             <Typography align={'center'} variant={"h5"}>
                 <EditTableSpan title={props.title} changeTitle={changeTodolistTitle}/>
                 <IconButton onClick={() => props.removeTodolist(props.todolistID)}><Delete/></IconButton>
@@ -85,7 +85,6 @@ export function Todolist(props: PropsType) {
                     <Button color={props.filter === 'completed' ? "secondary" : "primary"} onClick={()=>props.changeFilter(props.todolistID,"completed")}>Completed</Button>
                 </ButtonGroup>
             </div>
-
         </div>
     )
 }
