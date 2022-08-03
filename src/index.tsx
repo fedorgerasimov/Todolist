@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {darken, ThemeProvider} from "@material-ui/core/styles";
 import {createTheme} from '@material-ui/core/styles';
-import {blue, blueGrey, deepOrange, lightGreen, red, teal, yellow} from "@material-ui/core/colors";
+import {blueGrey, deepOrange} from "@material-ui/core/colors";
 import {CssBaseline} from "@material-ui/core";
-import {dark} from "@material-ui/core/styles/createPalette";
-import AppWithReducer from "./AppWithReducer";
 import AppWithRedux from "./AppWithRedux";
 import {Provider} from "react-redux";
 import {store} from "./store/store";
+import AppWithReduxWithoutProps from "./TodolistWithoutProps/AppWithReduxWithoutProps";
+
 
 const theme = createTheme({
     palette: {
@@ -25,7 +24,7 @@ ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
             <CssBaseline/> {/*сбрасывает стили (сбрасывает background)*/}
-            <AppWithRedux/>
+            <AppWithReduxWithoutProps/>
         </ThemeProvider>
     </Provider>
     , document.getElementById('root'));
