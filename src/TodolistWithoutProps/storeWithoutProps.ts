@@ -1,22 +1,22 @@
 
 import {combineReducers, legacy_createStore as createStore} from 'redux';
-import {tasksReducer} from "./tasks-reducer-withoutprops";
-import {todolistsReducer} from "./todolists-reducer-withoutprops";
+import {tasksReducerWP} from "./tasks-reducer-withoutprops";
+import {todolistsReducerWP} from "./todolists-reducer-withoutprops";
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
-const rootReducer = combineReducers({
-    tasks: tasksReducer,
-    todoLists: todolistsReducer
+const rootReducerWP = combineReducers({
+    tasks: tasksReducerWP,
+    todoLists: todolistsReducerWP,
 })
 // Непосредственно создаём store, это объект. Пример что включает, расписал внизу
-export const store = createStore(rootReducer);
+export const storeWP = createStore(rootReducerWP);
 
 // определить автоматически тип всего объекта состояния
-export type AppRootStateType = ReturnType<typeof rootReducer>
+export type AppRootStateTypeWP = ReturnType<typeof rootReducerWP>
 
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
 // @ts-ignore
-window.store = store;
+window.store = storeWP;
 
 /*
 const store = {

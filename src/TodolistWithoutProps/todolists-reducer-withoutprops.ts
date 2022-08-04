@@ -9,9 +9,11 @@ export type ActionType =
 
 const initialState: Array<TodolistType> = []
 
-export const todolistsReducer = (state = initialState, action: ActionType): Array<TodolistType> => {
+export const todolistsReducerWP = (state = initialState, action: ActionType): Array<TodolistType> => {
+    debugger
     switch (action.type) {
         case "ADD-TODOLIST":
+            debugger
             const newTodolist: TodolistType = {id: action.todolistID, title: action.newTitle, filter: 'all'}
             return [newTodolist,...state]
         case "REMOVE-TODOLIST":
@@ -27,10 +29,12 @@ export const todolistsReducer = (state = initialState, action: ActionType): Arra
     }
 }
 //AC - action creator- функция action creator возвращает объект
-export const addTodolistAC = (newTitle:string) =>
-    ({type: "ADD-TODOLIST", newTitle: newTitle, todolistID: v1()} as const) // нужны (скобки) вокруг {}, так как возвращаем объект
+export const addTodolistAC = (newTitle:string) => {
+    debugger
+    return {type: "ADD-TODOLIST", newTitle: newTitle, todolistID: v1()} as const
+}
 
-export const removeTodolistAC = (todolistID:string)  =>
+export const removeTodolistAC = (todolistID:string)  => // нужны (скобки) вокруг {}, так как возвращаем объект
     ({type: "REMOVE-TODOLIST", todolistID} as const)  // просто id (так как ключ и значение совпадают) или id:id
 
 export const changeTodolistTitleAC = (todolistID: string, newTitle:string) =>

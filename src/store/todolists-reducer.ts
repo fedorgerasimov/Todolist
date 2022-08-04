@@ -10,8 +10,10 @@ export type ActionType =
 const initialState: Array<TodolistType> = []
 
 export const todolistsReducer = (state = initialState, action: ActionType): Array<TodolistType> => {
+    //debugger
     switch (action.type) {
         case "ADD-TODOLIST":
+            //debugger
             const newTodolist: TodolistType = {id: action.todolistID, title: action.newTitle, filter: 'all'}
             return [newTodolist,...state]
         case "REMOVE-TODOLIST":

@@ -13,6 +13,7 @@ export type ActionType =
 const initialState: TasksStateType = {}
 
 export const tasksReducer = (state = initialState, action: ActionType): TasksStateType => {
+    //debugger
     switch (action.type) {
         case "REMOVE-TASK":
             return {
@@ -20,6 +21,7 @@ export const tasksReducer = (state = initialState, action: ActionType): TasksSta
                     el => el.id !== action.taskID)
             }
         case "ADD-TASK":
+            //debugger
             const newTask = {id: v1(), title: action.newTitle, isDone: false}
             return {...state, [action.todolistID]: [newTask, ...state[action.todolistID]]}
         case 'CHANGE-TASK-STATUS':
@@ -52,6 +54,7 @@ export const removeTaskAC = (todolistID: string, taskID: string) => {
     return {type: 'REMOVE-TASK', todolistID, taskID} as const
 }
 export const addTaskAC = (todolistID: string, newTitle: string) => {
+    //debugger
     return {type: 'ADD-TASK', todolistID, newTitle: newTitle} as const
 }
 export const changeTaskStatusAC = (todolistID: string, taskID: string, isDone: boolean) => {

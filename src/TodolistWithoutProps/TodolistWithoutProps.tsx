@@ -1,13 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@material-ui/core";
 import {Delete, DeleteForeverTwoTone} from '@material-ui/icons';
-import {TodolistType} from "./AppWithReduxWithoutProps";
+import {FilterValuesType, TodolistType} from "./AppWithReduxWithoutProps";
 import {useDispatch, useSelector} from "react-redux";
-import {AddItemForm} from "../AddItemForm";
-import EditTableSpan from "../EditTableSpan";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./tasks-reducer-withoutprops";
 import {changeTodolistFilterAC, changeTodolistTitleAC, removeTodolistAC} from "./todolists-reducer-withoutprops";
-import {AppRootStateType} from "./storeWithoutProps";
+import {AppRootStateTypeWP} from "./storeWithoutProps";
+import EditTableSpanWithoutProps from "./EditTableSpanWithoutProps";
+import {AddItemFormWithoutProps} from "./AddItemFormWithoutProps";
 
 export type TaskType = {
     id: string
@@ -20,8 +20,9 @@ type PropsType = {
 }
 
 export function TodolistWithoutProps({todoList}: PropsType) {
+
     const {id, title, filter} = todoList // деструктуризация
-    const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[id]) // по id берём св-во конкретного todoList
+    const tasks = useSelector<AppRootStateTypeWP, Array<TaskType>>(state => state.tasks[id]) // по id берём св-во конкретного todoList
 
     const dispatch = useDispatch()
     const addTaskTitle = (newTitle: string) =>
@@ -30,7 +31,7 @@ export function TodolistWithoutProps({todoList}: PropsType) {
     const changeTodolistTitle = (newTitle: string) =>
         dispatch(changeTodolistTitleAC(id, newTitle))
 
-    /*const getTasksForRender = (tasks: Array<TaskType>, filter: FilterValuesType) => {
+    const getTasksForRender = (tasks: Array<TaskType>, filter: FilterValuesType) => {
         let tasksForTodolist
         switch (filter) {
             case "active":
@@ -41,26 +42,26 @@ export function TodolistWithoutProps({todoList}: PropsType) {
                 return tasksForTodolist = tasks
         }
     }
-    const tasksListItems = getTasksForRender(tasks, filter)*/
+    const tasksListItems = getTasksForRender(tasks, filter)
 
-    let tasksForTodolist = tasks
+   /* let tasksForTodolist = tasks
     if (filter === "active") {
         tasksForTodolist = tasks.filter(el => el.isDone === false)
     }
     if (filter === "completed") {
         tasksForTodolist = tasks.filter(el => el.isDone === true)
-    }
+    }*/
 
     return (
         <div style={{maxWidth: "300px"}}> {/*не работает*/}
             <Typography align={'center'} variant={"h5"}>
-                <EditTableSpan title={title} changeTitle={changeTodolistTitle}/>
+                <EditTableSpanWithoutProps title={title} changeTitle={changeTodolistTitle}/>
                 <IconButton onClick={() => dispatch(removeTodolistAC(id))}><Delete/></IconButton>
             </Typography>
-            <AddItemForm addItem={addTaskTitle}/>
+            <AddItemFormWithoutProps addItem={addTaskTitle}/>
             <List>
-                {tasksForTodolist.length
-                    ? tasksForTodolist.map(t => {
+                {tasksListItems.length
+                    ? tasksListItems.map(t => {
                         const onClickHandler = () => dispatch(removeTaskAC(id, t.id))
                         const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                             dispatch(changeTaskStatusAC( id,t.id, e.currentTarget.checked));
@@ -77,7 +78,7 @@ export function TodolistWithoutProps({todoList}: PropsType) {
                                       size={'small'}
                                       onChange={onChangeHandler}
                                       checked={t.isDone}/>
-                            <EditTableSpan title={t.title} changeTitle={changeTaskTitle}/>
+                            <EditTableSpanWithoutProps title={t.title} changeTitle={changeTaskTitle}/>
                             <Button onClick={onClickHandler} size={'small'}><DeleteForeverTwoTone/></Button>
                         </ListItem>
                     })

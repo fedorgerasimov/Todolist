@@ -7,12 +7,12 @@ type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-export function AddItemForm(props: AddItemFormPropsType) {
+export function AddItemFormWithoutProps(props: AddItemFormPropsType) {
     let [title, setTitle] = useState("")
     let [error, setError] = useState<boolean>(false)
 
     const addItem = () => {
-        //debugger
+        debugger
         const trimmedTitle = title.trim()
         if (Boolean(trimmedTitle)) {  //if (title.trim())
             props.addItem(trimmedTitle)

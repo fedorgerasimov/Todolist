@@ -13,7 +13,8 @@ export type ActionType =
 
 const initialState: TasksStateType = {}
 
-export const tasksReducer = (state = initialState, action: ActionType): TasksStateType => {
+export const tasksReducerWP = (state = initialState, action: ActionType): TasksStateType => {
+    debugger
     switch (action.type) {
         case "REMOVE-TASK":
             return {
@@ -34,6 +35,7 @@ export const tasksReducer = (state = initialState, action: ActionType): TasksSta
                     el => el.id === action.taskID ? {...el, title: action.newTitle} : el)
             }
         case 'ADD-TODOLIST':
+            debugger
             return {
                 ...state, [action.todolistID]: []
             }

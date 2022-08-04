@@ -35,7 +35,7 @@ export type TasksStateType = {
 }
 
 function AppWithRedux() {
-
+    //debugger
     const todoLists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todoLists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
 
@@ -47,6 +47,7 @@ function AppWithRedux() {
     }
 
     const addTask = (todolistID: string, newTitle: string) => {
+        //debugger
         dispatch(addTaskAC(todolistID, newTitle))
     }
 

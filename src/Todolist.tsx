@@ -26,8 +26,11 @@ type PropsType = {
 }
 
 export function Todolist(props: PropsType) {
-
-    const addTaskTitle = (title: string) => props.addTask(props.todolistID, title)
+    //debugger
+    const addTaskTitle = (title: string) => {
+        //debugger
+        return (props.addTask(props.todolistID, title))
+    }
 
     const changeTodolistTitle = (newTitle: string) => props.changeTodolistTitle(props.todolistID, newTitle)
 

@@ -24,7 +24,7 @@ ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
             <CssBaseline/> {/*сбрасывает стили (сбрасывает background)*/}
-            <AppWithReduxWithoutProps/>
+            <AppWithRedux/>
         </ThemeProvider>
     </Provider>
     , document.getElementById('root'));

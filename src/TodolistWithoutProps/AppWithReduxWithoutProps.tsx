@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React from 'react';
 import './App.css';
 import {
     AppBar,
@@ -9,12 +9,11 @@ import {
     Typography
 } from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
-
 import {useDispatch, useSelector} from "react-redux";
 import {TaskType, TodolistWithoutProps} from "./TodolistWithoutProps";
-import {AddItemForm} from "../AddItemForm";
-import {AppRootStateType} from "./storeWithoutProps";
+import {AppRootStateTypeWP} from "./storeWithoutProps";
 import {addTodolistAC} from "./todolists-reducer-withoutprops";
+import {AddItemFormWithoutProps} from "./AddItemFormWithoutProps";
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodolistType = {
@@ -28,15 +27,15 @@ export type TasksStateType = {
 }
 
 function AppWithReduxWithoutProps() {
-
-    const todoLists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todoLists)
+    debugger
+    const todoLists = useSelector<AppRootStateTypeWP, Array<TodolistType>>(state => state.todoLists)
     // const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-
     const dispatch = useDispatch()
 
     const addTodolist = (newTitle: string) => {
-        let action = addTodolistAC(newTitle) // нужно создать объект, чтобы генерировать одинаковый id
-        dispatch(action)                    // иначе не будут добавляться TodoList
+        debugger
+         // нужно создать объект, чтобы генерировать одинаковый id
+        dispatch(addTodolistAC(newTitle))                    // иначе не будут добавляться TodoList
     }
 
     const todoListsForRender = todoLists.map(tl => {
@@ -71,7 +70,7 @@ function AppWithReduxWithoutProps() {
             <Container fixed>
                 <Grid container justifyContent={"center"}>
                     <div>
-                        <AddItemForm addItem={addTodolist}/> {/*обернули в div чтобы выровнять input */}
+                        <AddItemFormWithoutProps addItem={addTodolist}/> {/*обернули в div чтобы выровнять input */}
                     </div>
                 </Grid>
                 <Grid
