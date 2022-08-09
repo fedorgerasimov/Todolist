@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from 'react';
 import {FilterValuesType, TasksStateType} from './App';
 import {AddItemForm} from "./AddItemForm";
 import EditTableSpan from "./EditTableSpan";
@@ -15,7 +15,7 @@ type PropsType = {
     todolistID: string
     title: string
     filter: FilterValuesType
-    tasks: TasksStateType
+    tasks: Array<TaskType>
     addTask: (todolistID: string, title: string) => void
     removeTask: (todolistID: string, taskID: string) => void
     changeTaskStatus: (todolistID: string, taskID: string, isDone: boolean) => void
@@ -25,28 +25,34 @@ type PropsType = {
     changeTodolistTitle: (todolistID: string, title: string) => void
 }
 
-export function Todolist(props: PropsType) {
-    //debugger
-    const addTaskTitle = (title: string) => {
-        //debugger
+export const Todolist = React.memo((props: PropsType) => {
+    console.log("Todolist is called")
+    const addTaskTitle = useCallback((title: string) => {
         return (props.addTask(props.todolistID, title))
-    }
+    }, [props.addTask, props.todolistID])
 
     const changeTodolistTitle = (newTitle: string) => props.changeTodolistTitle(props.todolistID, newTitle)
 
-    const getTasksForRender = (tasks: TasksStateType, filter: FilterValuesType) => {
+    const getTasksForRender = (tasks: Array<TaskType>, filter: FilterValuesType) => {
         let tasksForTodolist
         switch (filter) {
             case "completed":
-                return tasksForTodolist = tasks[props.todolistID].filter(el => el.isDone === false)
+                return tasksForTodolist = tasks.filter(el => el.isDone === false)
             case "active":
-                return tasksForTodolist = tasks[props.todolistID].filter(el => el.isDone === true)
+                return tasksForTodolist = tasks.filter(el => el.isDone === true)
             default:
-                return tasksForTodolist = tasks[props.todolistID]
+                return tasksForTodolist = tasks
         }
     }
     const tasksForRender = getTasksForRender(props.tasks, props.filter)
     const tasksListItems = tasksForRender
+   /* let tasksListItems = props.tasks
+    if(props.filter === 'active') {
+        tasksListItems = tasksListItems.filter(el => el.isDone === false)
+    }
+      if(props.filter === 'completed') {
+        tasksListItems = tasksListItems.filter(el => el.isDone === true)
+    }*/
 
     return (
         <div style={{}}> {/*не работает*/}
@@ -90,4 +96,4 @@ export function Todolist(props: PropsType) {
             </div>
         </div>
     )
-}
+})

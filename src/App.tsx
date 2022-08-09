@@ -103,8 +103,8 @@ function App() {
                         todolistID={tl.id}
                         title={tl.title}
                         filter={tl.filter}
-                        tasks={tasks}
-
+                        //tasks={tasks}
+                        tasks={tasks[tl.id]}
                         removeTask={removeTask}
                         changeFilter={changeTodolistFilter}
                         addTask={addTask}
