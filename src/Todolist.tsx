@@ -26,11 +26,11 @@ type PropsType = {
     changeTodolistTitle: (todolistID: string, title: string) => void
 }
 
-export const Todolist = React.memo((props: PropsType) => {
+export const Todolist = React.memo(({addTask, ...props}: PropsType) => {
     console.log("Todolist is called")
     const addTaskTitle = useCallback((title: string) => {
-        return (props.addTask(props.todolistID, title))
-    }, [props.addTask, props.todolistID])
+        return (addTask(props.todolistID, title))
+    }, [addTask, props.todolistID])
 
     const changeTodolistTitle = (newTitle: string) => props.changeTodolistTitle(props.todolistID, newTitle)
 
