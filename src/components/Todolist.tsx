@@ -5,6 +5,7 @@ import EditTableSpan from "./EditTableSpan";
 import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@material-ui/core";
 import {Delete, DeleteForeverTwoTone} from '@material-ui/icons';
 import {Task} from './Task';
+import {TaskWithoutProps} from "./TaskWithoutProps";
 
 export type TaskType = {
     id: string
@@ -32,7 +33,8 @@ export const Todolist = React.memo(({addTask, ...props}: PropsType) => {
         return (addTask(props.todolistID, title))
     }, [addTask, props.todolistID])
 
-    const changeTodolistTitle = (newTitle: string) => props.changeTodolistTitle(props.todolistID, newTitle)
+    const changeTodolistTitle = useCallback((newTitle: string) =>
+        props.changeTodolistTitle(props.todolistID, newTitle),[ props.changeTodolistTitle,props.todolistID])
 
     const getTasksForRender = (tasks: Array<TaskType>, filter: FilterValuesType) => {
         let tasksForTodolist
@@ -55,15 +57,14 @@ export const Todolist = React.memo(({addTask, ...props}: PropsType) => {
            tasksListItems = tasksListItems.filter(el => el.isDone === true)
        }*/
 
-    const removeTaskCallBack = useCallback((taskID: string) =>
+    //не испоьзуем callback так как напрямую берём таску из redux
+   /* const removeTaskCallBack = useCallback((taskID: string) =>
         props.removeTask(props.todolistID, taskID), [props.removeTask, props.todolistID])
-
     const changeTaskStatusCallBack = useCallback((taskID: string, newIsDoneValue: boolean) =>
         props.changeTaskStatus(props.todolistID, taskID, newIsDoneValue), [props.changeTaskStatus, props.todolistID])
-
     const changeTitleCallBack = useCallback((taskID: string, newTitle: string) =>
         props.changeTaskTitle(props.todolistID, taskID, newTitle), [props.changeTaskTitle, props.todolistID])
-
+*/
     return (
         <div style={{}}> {/*не работает*/}
             <Typography align={'center'} variant={"h5"}>
@@ -74,12 +75,10 @@ export const Todolist = React.memo(({addTask, ...props}: PropsType) => {
             <List>
                 {tasksListItems.length
                     ? tasksListItems.map(t => {
-                        return <Task
+                        return <TaskWithoutProps
                             key={t.id}
                             task={t}
-                            changeTaskTitle={changeTitleCallBack}
-                            removeTask={removeTaskCallBack}
-                            changeTaskStatus={changeTaskStatusCallBack}
+                            todolistID={props.todolistID}
                         />
                     })
                     : <span>No task in list with this filter </span>
