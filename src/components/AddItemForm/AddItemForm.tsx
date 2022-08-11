@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 import {IconButton, TextField} from "@material-ui/core";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import s from './Todolist.module.css'
+import s from '../Todolist.module.css'
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void

@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useCallback} from 'react';
 import {FilterValuesType} from './App';
-import {AddItemForm} from "./AddItemForm";
+import {AddItemForm} from "./AddItemForm/AddItemForm";
 import EditTableSpan from "./EditTableSpan";
 import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@material-ui/core";
 import {Delete, DeleteForeverTwoTone} from '@material-ui/icons';
@@ -58,13 +58,12 @@ export const Todolist = React.memo(({addTask, ...props}: PropsType) => {
        }*/
 
     //не испоьзуем callback так как напрямую берём таску из redux
-   /* const removeTaskCallBack = useCallback((taskID: string) =>
+    const removeTaskCallBack = useCallback((taskID: string) =>
         props.removeTask(props.todolistID, taskID), [props.removeTask, props.todolistID])
     const changeTaskStatusCallBack = useCallback((taskID: string, newIsDoneValue: boolean) =>
         props.changeTaskStatus(props.todolistID, taskID, newIsDoneValue), [props.changeTaskStatus, props.todolistID])
     const changeTitleCallBack = useCallback((taskID: string, newTitle: string) =>
         props.changeTaskTitle(props.todolistID, taskID, newTitle), [props.changeTaskTitle, props.todolistID])
-*/
     return (
         <div style={{}}> {/*не работает*/}
             <Typography align={'center'} variant={"h5"}>
@@ -75,10 +74,12 @@ export const Todolist = React.memo(({addTask, ...props}: PropsType) => {
             <List>
                 {tasksListItems.length
                     ? tasksListItems.map(t => {
-                        return <TaskWithoutProps
+                        return <Task
                             key={t.id}
                             task={t}
-                            todolistID={props.todolistID}
+                            changeTaskStatus={changeTaskStatusCallBack}
+                            removeTask={removeTaskCallBack}
+                            changeTaskTitle={changeTitleCallBack}
                         />
                     })
                     : <span>No task in list with this filter </span>
