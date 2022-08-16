@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useCallback} from "react";
 import {Button, Checkbox, ListItem} from "@material-ui/core";
-import EditTableSpan from "./EditTableSpan";
+import EditTableSpan from "../EditTableSpan";
 import {DeleteForeverTwoTone} from "@material-ui/icons";
-import {TaskType} from "./Todolist";
+import {TaskType} from "../Todolist";
 import {useDispatch} from "react-redux";
-import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../store/tasks-reducer";
+import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../../store/tasks-reducer";
 
 type TaskPropsType = {
     task: TaskType
@@ -22,7 +22,7 @@ export const TaskWithoutProps = React.memo( ({task, todolistID}: TaskPropsType) 
         dispatch(changeTaskTitleAC(todolistID,task.id, newTitle))
 
     return <ListItem
-        style={{padding: "0", justifyContent: "space-between"}}
+        style={{padding: "0", justifyContent: "space-between", maxWidth: "300px"}}
         className={task.isDone ? "is-done" : ""}>
         <Checkbox color={'primary'}
                   size={'small'}

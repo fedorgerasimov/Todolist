@@ -6,7 +6,7 @@ import {darken, ThemeProvider} from "@material-ui/core/styles";
 import {createTheme} from '@material-ui/core/styles';
 import {blueGrey, deepOrange} from "@material-ui/core/colors";
 import {CssBaseline} from "@material-ui/core";
-import AppWithRedux from "./components/AppWithRedux";
+import AppWithRedux from "./components/App/AppWithRedux";
 import {Provider} from "react-redux";
 import {store} from "./store/store";
 import AppWithReduxWithoutProps from "./TodolistWithoutProps/AppWithReduxWithoutProps";

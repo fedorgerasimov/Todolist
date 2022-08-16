@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
-import './App.css';
-import {TaskType, Todolist} from './Todolist';
-import {AddItemForm} from "./AddItemForm/AddItemForm";
+import '../App.css';
+import {TaskType, Todolist} from '../Todolist';
+import {AddItemForm} from "../AddItemForm/AddItemForm";
 import {
     AppBar,
     Button,
@@ -16,10 +16,10 @@ import {
     changeTodolistFilterAC,
     changeTodolistTitleAC,
     removeTodolistAC,
-} from "../store/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../store/tasks-reducer";
+} from "../../store/todolists-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../../store/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../store/store";
+import {AppRootStateType} from "../../store/store";
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodolistType = {

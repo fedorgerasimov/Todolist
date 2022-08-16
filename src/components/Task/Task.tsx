@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from "react";
 import {Button, Checkbox, ListItem} from "@material-ui/core";
-import EditTableSpan from "./EditTableSpan";
+import EditTableSpan from "../EditTableSpan";
 import {DeleteForeverTwoTone} from "@material-ui/icons";
-import {TaskType} from "./Todolist";
+import {TaskType} from "../Todolist";
 
 type TaskPropsType = {
     task: TaskType
@@ -17,7 +17,7 @@ export const Task = React.memo( ({task, removeTask, changeTaskStatus, changeTask
     const changeTitle = (newTitle: string) => changeTaskTitle(task.id, newTitle)
 
     return <ListItem
-        style={{padding: "0", justifyContent: "space-between"}}
+        style={{padding: "0", justifyContent: "space-between", maxWidth: "300px"}}
         className={task.isDone ? "is-done" : ""}>
         <Checkbox color={'primary'}
                   size={'small'}
