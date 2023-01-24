@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import axios from "axios";
 import {TodolistApi} from "../api/todolist-api";
 
 export default {
@@ -23,7 +22,7 @@ export const GetTodolists = () => {
 export const CreateTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        TodolistApi.createTodolists('new Todolist 24.01.2023')
+        TodolistApi.createTodolist('new Todolist 24.01.2023')
             .then((res)=> {
                 setState(res.data);
             })
@@ -34,8 +33,8 @@ export const CreateTodolist = () => {
 export const DeleteTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todolistId= '3ee5daec-0c3d-43e0-a194-dd514161bd50'
-            TodolistApi.deleteTodolists(todolistId)
+        const todolistId= 'fe21190d-a60c-46fa-a7b2-2cad01d2d65f'
+            TodolistApi.deleteTodolist(todolistId)
             .then((res)=>{
                 setState(res.data)
             })
@@ -47,7 +46,8 @@ export const UpdateTodolistTitle = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
         const todolistId= '1131ae15-a0d8-43dd-9b85-34a61f515d1d'
-        TodolistApi.updateTodolists(todolistId,'how are you feeling?')
+        const title = 'how are you feeling?'
+        TodolistApi.updateTodolistTitle({todolistId, title})
         .then((res) => {
            setState(res.data)
         })
