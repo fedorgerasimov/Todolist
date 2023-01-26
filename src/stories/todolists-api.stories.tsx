@@ -2,10 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {TodolistApi} from "../api/todolist-api";
 
 export default {
-    title: 'API',
-    headers: {
-        'API-KEY': '9bcff6d4-9258-4e23-8719-879999ad9a5c'
-    }
+    title: 'API'
 }
 
 export const GetTodolists = () => {
@@ -22,7 +19,7 @@ export const GetTodolists = () => {
 export const CreateTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const title = 'new project 25.01'
+        const title = 'React TS Angular'
         TodolistApi.createTodolist(title)
             .then((res)=> {
                 setState(res.data);
@@ -34,7 +31,7 @@ export const CreateTodolist = () => {
 export const DeleteTodolist = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todolistId= 'b0d7e4e5-520b-4cce-bafb-42f21d740483'
+        const todolistId= 'f92f7618-5537-4504-ad76-b17728ea6e9a'
             TodolistApi.deleteTodolist(todolistId)
             .then((res)=>{
                 setState(res.data)
@@ -46,8 +43,8 @@ export const DeleteTodolist = () => {
 export const UpdateTodolistTitle = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        const todolistId= '793ef4d5-5c8d-4bac-8965-50fccb3c3de9'
-        const title = 'how are you feeling?'
+        const todolistId= 'f3dc5d2f-d16a-4d30-bb44-eda33293315f'
+        const title = 'what are you doing 26.01.23?'
         TodolistApi.updateTodolistTitle({todolistId, title})
         .then((res) => {
            setState(res.data)

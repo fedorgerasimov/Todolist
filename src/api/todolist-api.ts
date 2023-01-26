@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     withCredentials: true,
     headers: {
-        'API-KEY': '9bcff6d4-9258-4e23-8719-879999ad9a5c'
+        'API-KEY': '8de0ed6b-0a62-4b48-be08-852818ff8f02'
     }
 })
 
@@ -13,11 +13,12 @@ export const TodolistApi = {
         return instance.get<TodolistType[]>('todo-lists')
     },
     createTodolist: (title: string) => {
-        return instance.post<BaseResponseType<{ item: TodolistType }>>('todo-lists', title)
+        return instance.post<any, AxiosResponse<BaseResponseType<{item: TodolistType}>>, {title:string}>
+        ('todo-lists', {title})
     },
 
     deleteTodolist: (todolistId: string) => {
-        return instance.delete<BaseResponseType<{}>>(`todo-lists/${todolistId}`)
+        return instance.delete<BaseResponseType>(`todo-lists/${todolistId}`)
     },
     updateTodolistTitle: (p: { todolistId: string, title: string }) => {
         return instance.put<BaseResponseType>(`todo-lists/${p.todolistId}`, {title: p.title})
@@ -38,16 +39,16 @@ type BaseResponseType<T = {} > =  {  // T - джинерик
     data: T
 }
 
-// type CreateTodolistType = {
-//     data: { item: TodolistType }
-//     fieldsErrors: string[]
-//     messages: string[]
-//     resultCode: number
-// }
+type _CreateTodolistType = {
+    resultCode: number
+    messages: string[]
+    fieldsErrors: string[]
+    data: { item: TodolistType }
+}
 
-// type DeleteAndUpdateTodoType = {
-//     data: {}
-//     fieldsErrors: string[]
-//     messages: string[]
-//     resultCode: number
-// }
+type _DeleteAndUpdateTodoType = {
+    resultCode: number
+    messages: string[]
+    fieldsErrors: string[]
+    data: {}
+}
